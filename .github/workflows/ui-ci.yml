@@ -1,0 +1,34 @@
+name: UI CI
+
+on:
+  push:
+    paths:
+      - 'ui/**'
+      - '.github/workflows/ui-ci.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ui
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'  # Latest LTS version of Node.js
+        cache: 'npm'
+        cache-dependency-path: 'ui/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Build
+      run: npm run build
