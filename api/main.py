@@ -1,8 +1,17 @@
+"""
+Main application module.
+
+This module initializes the FastAPI application and includes all routers.
+"""
+
 import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.routers import root
+
+# Initialize FastAPI app
 app = FastAPI(
     title="Heart-AI API",
     description="API for Heart-AI application",
@@ -18,7 +27,5 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-
-@app.get("/")
-def read_root():
-    return {"Hello": "Hello world"}
+# Include routers
+app.include_router(root.router)

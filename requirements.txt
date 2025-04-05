@@ -1,2 +1,6 @@
 fastapi[standard]
 uvicorn[standard]
+pytest[standard]
+httpx[standard]
+pytest-asyncio[standard]
+pytest-cov[standard]
