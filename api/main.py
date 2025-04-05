@@ -9,7 +9,7 @@ app = FastAPI(
 )
 
 # Get CORS origins from environment variable
-cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000")
+cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000,https://heart-ia-app.onrender.com")
 origins = cors_origins.split(",")
 
 # Add CORS middleware
