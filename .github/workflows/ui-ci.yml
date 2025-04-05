@@ -5,6 +5,7 @@ on:
     paths:
       - 'ui/**'
       - '.github/workflows/ui-ci.yml'
+      - 'sonar-project.properties'
 
 jobs:
   build:
@@ -16,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
@@ -32,3 +35,12 @@ jobs:
 
     - name: Build
       run: npm run build
+
+    - name: Test with coverage
+      run: npm test -- --coverage
+
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
