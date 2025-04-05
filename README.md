@@ -73,11 +73,15 @@ pytest
 
 ### Tests UI (React)
 
-Les tests du frontend utilisent Jest et React Testing Library :
+Les tests du frontend utilisent Vitest et React Testing Library :
 ```bash
 cd ui
-npm test
+npm test                # Exécuter les tests une fois
+npm run test:watch      # Exécuter les tests en mode watch
+npm run test:coverage   # Exécuter les tests avec couverture
 ```
+
+Les tests sont organisés dans des répertoires `__tests__` à côté des composants testés.
 
 ## CI avec GitHub Actions
 
