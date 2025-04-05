@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   tag-on-merge:
     runs-on: ubuntu-latest
@@ -19,13 +22,9 @@ jobs:
 
       - name: Create and push tag
         run: |
-          # Get current date in YYYY.MM.DD format
           TAG_DATE=$(date +'%Y.%m.%d')
-          # Count number of tags for today to create a unique tag
           TAG_COUNT=$(git tag -l "v$TAG_DATE.*" | wc -l)
-          # Create new tag
           NEW_TAG="v$TAG_DATE.$((TAG_COUNT+1))"
-          # Create and push tag
           git tag $NEW_TAG
           git push origin $NEW_TAG
           echo "Created and pushed tag: $NEW_TAG"
