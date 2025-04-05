@@ -1,4 +1,5 @@
 import { AppSidebar } from '@/components/app-sidebar';
+import { ThemeToggle } from '@/components/theme-toggle';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,41 +14,96 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-function App() {
+import { 
+  Outlet, 
+  RouterProvider, 
+  Router,
+  Route, 
+  RootRoute,
+  useRouter,
+  useRouterState,
+} from '@tanstack/react-router';
+import { HomePage } from '@/pages/home';
+import { AnalysePage } from '@/pages/analyse';
+
+// Breadcrumb component that uses router hooks
+function BreadcrumbNav() {
+  const router = useRouter();
+  const routerState = useRouterState();
+  const currentPath = routerState.location.pathname;
+
   return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem className="hidden md:block">
+          <BreadcrumbLink href="/" onClick={(e) => {
+            e.preventDefault();
+            router.navigate({ to: '/' });
+          }}>
+            Heart-AI
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator className="hidden md:block" />
+        <BreadcrumbItem>
+          <BreadcrumbPage>
+            {currentPath === "/" ? "Accueil" : "Analyse"}
+          </BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
+}
+
+// Create a root route
+const rootRoute = new RootRoute({
+  component: () => (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+        <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+            <BreadcrumbNav />
+          </div>
+          <div className="flex items-center gap-2 px-4">
+            <ThemeToggle />
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-            <div className="bg-muted/50 aspect-video rounded-xl" />
-          </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
-        </div>
+        <Outlet />
       </SidebarInset>
     </SidebarProvider>
-  );
+  ),
+});
+
+// Create routes
+const homeRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: HomePage,
+});
+
+const analyseRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/analyse',
+  component: AnalysePage,
+});
+
+// Create the route tree using the routes
+const routeTree = rootRoute.addChildren([homeRoute, analyseRoute]);
+
+// Create the router using the route tree
+const router = new Router({ routeTree });
+
+// Register the router for type safety
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
+
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;
