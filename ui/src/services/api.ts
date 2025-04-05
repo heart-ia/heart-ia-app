@@ -12,11 +12,11 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export async function fetchHelloWorld(): Promise<{ Hello: string }> {
   try {
     const response = await fetch(`${API_BASE_URL}/`);
-    
+
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Error fetching data:', error);

@@ -1,7 +1,5 @@
-"use client"
-
-import { type LucideIcon } from "lucide-react"
-import { Link } from "@tanstack/react-router"
+import { type LucideIcon } from 'lucide-react';
+import { Link } from '@tanstack/react-router';
 
 import {
   SidebarGroup,
@@ -9,17 +7,17 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/sidebar';
 
 export function NavMain({
   items,
 }: {
   items: {
-    title: string
-    url: string
-    icon?: LucideIcon
-    isActive?: boolean
-  }[]
+    title: string;
+    url: string;
+    icon?: LucideIcon;
+    isActive?: boolean;
+  }[];
 }) {
   return (
     <SidebarGroup>
@@ -28,7 +26,12 @@ export function NavMain({
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild tooltip={item.title}>
-              <Link to={item.url} activeProps={{ className: "bg-sidebar-accent text-sidebar-accent-foreground" }}>
+              <Link
+                to={item.url}
+                activeProps={{
+                  className: 'bg-sidebar-accent text-sidebar-accent-foreground',
+                }}
+              >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </Link>
@@ -37,5 +40,5 @@ export function NavMain({
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }
