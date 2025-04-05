@@ -206,3 +206,4 @@ cython_debug/
 #.idea/
 .junie/
 .error_bashrc
+/pytest-report.xml
