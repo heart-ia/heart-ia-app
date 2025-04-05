@@ -14,11 +14,11 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { 
-  Outlet, 
-  RouterProvider, 
+import {
+  Outlet,
+  RouterProvider,
   Router,
-  Route, 
+  Route,
   RootRoute,
   useRouter,
   useRouterState,
@@ -36,17 +36,20 @@ function BreadcrumbNav() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem className="hidden md:block">
-          <BreadcrumbLink href="/" onClick={(e) => {
-            e.preventDefault();
-            router.navigate({ to: '/' });
-          }}>
+          <BreadcrumbLink
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              router.navigate({ to: '/' });
+            }}
+          >
             Heart-AI
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden md:block" />
         <BreadcrumbItem>
           <BreadcrumbPage>
-            {currentPath === "/" ? "Accueil" : "Analyse"}
+            {currentPath === '/' ? 'Accueil' : 'Analyse'}
           </BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
