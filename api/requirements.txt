@@ -1,0 +1,16 @@
+# Heart-AI API dependencies
+
+# FastAPI and ASGI server
+fastapi>=0.104.0
+uvicorn>=0.23.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# CORS middleware is included in FastAPI
+
+# Add other dependencies as needed
+# For example:
+# - Database: sqlalchemy, databases, psycopg2-binary
+# - Authentication: python-jose, passlib
+# - Machine learning: scikit-learn, numpy, pandas
