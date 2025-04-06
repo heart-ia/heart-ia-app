@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Activity, Home } from 'lucide-react';
+import { Activity, Database, Home } from 'lucide-react';
 
 import { NavMain } from '@/components/nav-main';
 import { TeamSwitcher } from '@/components/team-switcher';
@@ -28,6 +28,11 @@ const data = {
       title: 'Analyse',
       url: '/analyse',
       icon: Activity,
+    },
+    {
+      title: 'Dataset',
+      url: '/dataset',
+      icon: Database,
     },
   ],
 };

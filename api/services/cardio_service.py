@@ -9,7 +9,7 @@ from typing import List
 
 import pandas as pd
 
-from api.models.cardio import ChartData, CorrelationAnalysis, DatasetStatistics
+from api.models.cardio import ChartData, CorrelationAnalysis, Dataset, DatasetStatistics
 
 
 class CardioService:
@@ -542,3 +542,21 @@ class CardioService:
             self.get_alcohol_chart(),
             self.get_risk_factors_radar_chart()
         ]
+
+    def get_complete_dataset(self) -> Dataset:
+        """
+        Get the complete dataset.
+
+        Returns:
+            Dataset: The complete dataset with all patient records.
+        """
+        if self.data is None:
+            self.load_data()
+
+        # Convert the DataFrame to a list of dictionaries
+        dataset_records = self.data.to_dict(orient="records")
+
+        return Dataset(
+            data=dataset_records,
+            total_records=len(dataset_records)
+        )

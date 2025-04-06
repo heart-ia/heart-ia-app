@@ -75,3 +75,9 @@ class CorrelationAnalysis(BaseModel):
     top_correlations: List[Dict[str, Union[str, float]]] = Field(
         ..., description="Top correlations with cardiovascular disease"
     )
+
+
+class Dataset(BaseModel):
+    """Dataset model containing all patient records."""
+    data: List[Dict[str, Union[str, int, float, bool]]] = Field(..., description="List of patient records")
+    total_records: int = Field(..., description="Total number of records in the dataset")

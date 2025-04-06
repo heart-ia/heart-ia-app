@@ -10,6 +10,7 @@ import {
 } from '@tanstack/react-router';
 import { HomePage } from '@/pages/home';
 import { AnalysePage } from '@/pages/analyse';
+import { DatasetPage } from '@/pages/dataset';
 
 // Create a root route
 const rootRoute = new RootRoute({
@@ -37,8 +38,14 @@ const analyseRoute = new Route({
   component: AnalysePage,
 });
 
+const datasetRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/dataset',
+  component: DatasetPage,
+});
+
 // Create the route tree using the routes
-const routeTree = rootRoute.addChildren([homeRoute, analyseRoute]);
+const routeTree = rootRoute.addChildren([homeRoute, analyseRoute, datasetRoute]);
 
 // Create the router using the route tree
 const router = new Router({ routeTree });

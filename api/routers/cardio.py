@@ -8,7 +8,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends
 
-from api.models.cardio import ChartData, CorrelationAnalysis, DatasetStatistics
+from api.models.cardio import ChartData, CorrelationAnalysis, Dataset, DatasetStatistics
 from api.services.cardio_service import CardioService
 
 router = APIRouter(
@@ -208,3 +208,16 @@ async def get_risk_factors_radar_chart(
         ChartData: Risk factors radar chart data.
     """
     return cardio_service.get_risk_factors_radar_chart()
+
+
+@router.get("/dataset", response_model=Dataset)
+async def get_complete_dataset(
+    cardio_service: CardioService = Depends(get_cardio_service),
+) -> Dataset:
+    """
+    Get the complete dataset with all patient records.
+
+    Returns:
+        Dataset: The complete dataset with all patient records.
+    """
+    return cardio_service.get_complete_dataset()
