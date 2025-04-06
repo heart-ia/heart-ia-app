@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchCholesterolChart } from '@/api/cardio-service.ts';
 import {
   Card,
   CardContent,
@@ -15,6 +13,7 @@ import {
 } from '@/components/ui/chart.tsx';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import * as React from 'react';
+import { CholesterolChartData } from '@/types/cardio';
 
 const chartConfig = {
   num_sick_people: {
@@ -27,11 +26,11 @@ const chartConfig = {
   },
 };
 
-export function CholesterolDistributionChart() {
-  const { data: cholesterolDistribution } = useQuery({
-    queryKey: ['cholesterol-charts'],
-    queryFn: fetchCholesterolChart,
-  });
+interface CholesterolDistributionChartProps {
+  data?: CholesterolChartData;
+}
+
+export function CholesterolDistributionChart({ data: cholesterolDistribution }: CholesterolDistributionChartProps) {
 
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null

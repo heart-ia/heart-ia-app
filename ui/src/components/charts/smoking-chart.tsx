@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchSmokingChart } from '@/api/cardio-service.ts';
 import {
   Card,
   CardContent,
@@ -15,6 +13,7 @@ import {
 } from '@/components/ui/chart.tsx';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import * as React from 'react';
+import { SmokingChartData } from '@/types/cardio';
 
 const chartConfig = {
   num_sick_people: {
@@ -27,11 +26,11 @@ const chartConfig = {
   },
 };
 
-export function SmokingChart() {
-  const { data: smokingDistribution } = useQuery({
-    queryKey: ['smoking-charts'],
-    queryFn: fetchSmokingChart,
-  });
+interface SmokingChartProps {
+  data?: SmokingChartData;
+}
+
+export function SmokingChart({ data: smokingDistribution }: SmokingChartProps) {
 
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null

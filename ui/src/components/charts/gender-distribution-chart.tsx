@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchGenderDistributionChart } from '@/api/cardio-service.ts';
 import {
   Card,
   CardContent,
@@ -15,6 +13,7 @@ import {
 } from '@/components/ui/chart.tsx';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import * as React from 'react';
+import { GenderDistributionChartData } from '@/types/cardio';
 
 const chartConfig = {
   num_sick_people: {
@@ -27,11 +26,11 @@ const chartConfig = {
   },
 };
 
-export function GenderDistributionChart() {
-  const { data: genderDistribution } = useQuery({
-    queryKey: ['gender-charts'],
-    queryFn: fetchGenderDistributionChart,
-  });
+interface GenderDistributionChartProps {
+  data?: GenderDistributionChartData;
+}
+
+export function GenderDistributionChart({ data: genderDistribution }: GenderDistributionChartProps) {
 
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null
