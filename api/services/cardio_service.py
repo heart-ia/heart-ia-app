@@ -369,8 +369,8 @@ class CardioService:
         return ChartData(
             chart_type="histogram",
             title="Tabagisme et maladies cardiovasculaires",
-            description="Ce graphique compare le nombre de personnes atteintes ou non de maladies cardiovasculaires selon qu'elles fument (1) ou non (0).",
-            x_label="Tabagisme (0=Non, 1=Oui)",
+            description="Ce graphique compare le nombre de personnes atteintes ou non de maladies cardiovasculaires selon qu'elles fument.",
+            x_label="Tabagisme",
             y_label="Nombre de cas",
             data=chart_data
         )
@@ -401,7 +401,7 @@ class CardioService:
         return ChartData(
             chart_type="histogram",
             title="Consommation d'alcool et maladies cardiovasculaires",
-            description="Ce graphique compare le nombre de personnes atteintes ou non de maladies cardiovasculaires selon qu'elles consomment de l'alcool (1) ou non (0).",
+            description="Ce graphique compare le nombre de personnes atteintes ou non de maladies cardiovasculaires selon qu'elles consomment de l'alcool.",
             x_label="Consommation d'alcool (0=Non, 1=Oui)",
             y_label="Nombre de cas",
             data=chart_data
