@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchAgeDistributionChart } from '@/api/cardio-service.ts';
 import {
   Card,
   CardContent,
@@ -15,6 +13,7 @@ import {
 } from '@/components/ui/chart.tsx';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import * as React from 'react';
+import { AgeDistributionChartData } from '@/types/cardio';
 
 const chartConfig = {
   num_sick_people: {
@@ -27,11 +26,11 @@ const chartConfig = {
   },
 };
 
-export function AgeDistributionChart() {
-  const { data: ageDistribution } = useQuery({
-    queryKey: ['page-charts'],
-    queryFn: fetchAgeDistributionChart,
-  });
+interface AgeDistributionChartProps {
+  data?: AgeDistributionChartData;
+}
+
+export function AgeDistributionChart({ data: ageDistribution }: AgeDistributionChartProps) {
 
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null

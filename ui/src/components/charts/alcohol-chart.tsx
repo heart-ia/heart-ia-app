@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchAlcoholChart } from '@/api/cardio-service.ts';
 import {
   Card,
   CardContent,
@@ -15,6 +13,7 @@ import {
 } from '@/components/ui/chart.tsx';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import * as React from 'react';
+import { AlcoholChartData } from '@/types/cardio';
 
 const chartConfig = {
   num_sick_people: {
@@ -27,11 +26,11 @@ const chartConfig = {
   },
 };
 
-export function AlcoholChart() {
-  const { data: alcoholDistribution } = useQuery({
-    queryKey: ['alcohol-charts'],
-    queryFn: fetchAlcoholChart,
-  });
+interface AlcoholChartProps {
+  data?: AlcoholChartData;
+}
+
+export function AlcoholChart({ data: alcoholDistribution }: AlcoholChartProps) {
 
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null

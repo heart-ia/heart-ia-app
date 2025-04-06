@@ -12,6 +12,7 @@ import {
   CholesterolChartData,
   CorrelationAnalysis,
   DatasetStatistics,
+  DatasetType,
   GenderDistributionChartData,
   GlucoseChartData,
   PhysicalActivityChartData,
@@ -190,7 +191,9 @@ export async function fetchAlcoholChart(): Promise<AlcoholChartData> {
  * @returns {Promise<BloodPressureCorrelationChartData>} Blood pressure correlation chart data.
  */
 export async function fetchBloodPressureCorrelationChart(): Promise<BloodPressureCorrelationChartData> {
-  const response = await fetch(`${API_URL}/cardio/charts/blood-pressure-correlation`);
+  const response = await fetch(
+    `${API_URL}/cardio/charts/blood-pressure-correlation`,
+  );
   if (!response.ok) {
     throw new Error(
       `Failed to fetch blood pressure correlation chart data: ${response.statusText}`,
@@ -220,6 +223,19 @@ export async function fetchCorrelationAnalysis(): Promise<CorrelationAnalysis> {
     throw new Error(
       `Failed to fetch correlation analysis: ${response.statusText}`,
     );
+  }
+  return response.json();
+}
+
+/**
+ * Fetch the complete dataset with all patient records.
+ *
+ * @returns {Promise<any>} The complete dataset with all patient records.
+ */
+export async function fetchCompleteDataset(): Promise<{ data: DatasetType[] }> {
+  const response = await fetch(`${API_URL}/cardio/dataset`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch complete dataset: ${response.statusText}`);
   }
   return response.json();
 }

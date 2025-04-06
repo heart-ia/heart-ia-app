@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
 
+function setAgGridDarkMode(enabled: boolean) {
+  document.body.dataset.agThemeMode = enabled ? 'dark' : 'light';
+}
+
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
     // Check if theme is stored in localStorage
@@ -35,5 +39,6 @@ export function useTheme() {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
+  setAgGridDarkMode(theme === 'dark');
   return { theme, toggleTheme };
 }

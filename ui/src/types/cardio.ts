@@ -160,3 +160,17 @@ export interface CorrelationAnalysis {
     correlation: number;
   }>;
 }
+
+export type DatasetType = {
+  age: number;
+  gender: number;
+  ap_hi: number;
+  ap_lo: number;
+  cholesterol: number;
+  gluc: number;
+  smoke: number;
+  alco: number;
+  active: number;
+  cardio: 0 | 1;
+  IMC: number;
+};

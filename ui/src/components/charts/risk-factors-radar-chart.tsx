@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchRiskFactorsRadarChart } from '@/api/cardio-service.ts';
 import {
   Card,
   CardContent,
@@ -18,23 +16,15 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
+import { RiskFactorsRadarChartData } from '@/types/cardio';
 
-export function RiskFactorsRadarChart() {
-  const {
-    data: riskFactorsRadar,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['risk-factors-radar-chart'],
-    queryFn: fetchRiskFactorsRadarChart,
-  });
+interface RiskFactorsRadarChartProps {
+  data?: RiskFactorsRadarChartData;
+}
 
-  if (isLoading) {
-    return <div>Loading risk factors radar chart...</div>;
-  }
-
-  if (error || !riskFactorsRadar) {
-    return <div>Error loading risk factors radar chart</div>;
+export function RiskFactorsRadarChart({ data: riskFactorsRadar }: RiskFactorsRadarChartProps) {
+  if (!riskFactorsRadar) {
+    return null;
   }
 
   return (

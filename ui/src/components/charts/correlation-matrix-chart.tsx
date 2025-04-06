@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import { fetchCorrelationAnalysis } from '@/api/cardio-service.ts';
 import {
   Card,
   CardContent,
@@ -17,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { CorrelationAnalysis } from '@/types/cardio';
 
 // Mapping of technical feature names to descriptive French names
 const featureNameMapping: Record<string, string> = {
@@ -32,22 +31,13 @@ const featureNameMapping: Record<string, string> = {
   cardio: 'Maladie Cardiovasculaire',
 };
 
-export function CorrelationMatrixChart() {
-  const {
-    data: correlationAnalysis,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ['correlation-analysis'],
-    queryFn: fetchCorrelationAnalysis,
-  });
+interface CorrelationMatrixChartProps {
+  data?: CorrelationAnalysis;
+}
 
-  if (isLoading) {
-    return <div>Loading correlation matrix...</div>;
-  }
-
-  if (error || !correlationAnalysis) {
-    return <div>Error loading correlation matrix</div>;
+export function CorrelationMatrixChart({ data: correlationAnalysis }: CorrelationMatrixChartProps) {
+  if (!correlationAnalysis) {
+    return null;
   }
 
   const { correlation_matrix, feature_names, top_correlations } =
