@@ -1,9 +1,6 @@
 import { AppSidebar } from '@/components/app-sidebar';
 import { Header } from '@/components/header';
-import {
-  SidebarInset,
-  SidebarProvider,
-} from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import {
   Outlet,
   RouterProvider,
@@ -14,11 +11,10 @@ import {
 import { HomePage } from '@/pages/home';
 import { AnalysePage } from '@/pages/analyse';
 
-
 // Create a root route
 const rootRoute = new RootRoute({
   component: () => (
-    <SidebarProvider>
+    <SidebarProvider className="w-full min-w-full">
       <AppSidebar />
       <SidebarInset>
         <Header />
