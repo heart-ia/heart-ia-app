@@ -1,5 +1,6 @@
-# ❤️ Heart-AI
+# ❤️  [Heart-AI](https://heart-ia.onrender.com/)
 
+---
 [![UI CI](https://github.com/heart-ia/heart-ia-app/actions/workflows/ui-ci.yml/badge.svg)](https://github.com/heart-ia/heart-ia-app/actions/workflows/ui-ci.yml)
 [![API CI](https://github.com/heart-ia/heart-ia-app/actions/workflows/api-ci.yml/badge.svg)](https://github.com/heart-ia/heart-ia-app/actions/workflows/api-ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
@@ -7,10 +8,17 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Render](https://img.shields.io/badge/deploy-Render-46E3B7.svg?logo=render&logoColor=white)](https://render.com)
-
+---
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=heart-ia_heart-ia-app)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=heart-ia_heart-ia-app&metric=alert_status&token=33ab1a672233508458e0c82f82547c8baac9a6ca)](https://sonarcloud.io/summary/new_code?id=heart-ia_heart-ia-app)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=heart-ia_heart-ia-app&metric=bugs&token=33ab1a672233508458e0c82f82547c8baac9a6ca)](https://sonarcloud.io/summary/new_code?id=heart-ia_heart-ia-app)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=heart-ia_heart-ia-app&metric=code_smells&token=33ab1a672233508458e0c82f82547c8baac9a6ca)](https://sonarcloud.io/summary/new_code?id=heart-ia_heart-ia-app)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=heart-ia_heart-ia-app&metric=coverage&token=33ab1a672233508458e0c82f82547c8baac9a6ca)](https://sonarcloud.io/summary/new_code?id=heart-ia_heart-ia-app)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=heart-ia_heart-ia-app&metric=duplicated_lines_density&token=33ab1a672233508458e0c82f82547c8baac9a6ca)](https://sonarcloud.io/summary/new_code?id=heart-ia_heart-ia-app)
+---
 🫀 Application de prédiction des maladies cardiovasculaires basée sur l'intelligence artificielle.
 
-🔗 **Application déployée**: [https://heart-ia.onrender.com/](https://heart-ia.onrender.com/)
+### 🔗 **Application déployée**: [https://heart-ia.onrender.com/](https://heart-ia.onrender.com/)
 
 ## 📑 Table des matières
 
@@ -112,8 +120,6 @@ heart-ia-app/
 ### 🔙 Backend
 - 🚀 **FastAPI**: Framework web rapide pour la création d'APIs
 - 🐼 **Pandas/NumPy**: Manipulation et analyse de données
-- 🧠 **Scikit-learn**: Algorithmes de machine learning
-- 📊 **Matplotlib/Seaborn/Plotly**: Visualisation de données
 
 ### 🖥️ Frontend
 - ⚛️ **React 19**: Bibliothèque UI avec hooks
@@ -125,4 +131,4 @@ heart-ia-app/
 
 ## 🌐 Déploiement
 
-L'application est déployée sur [Render](https://render.com) avec une configuration définie dans `render.yaml`.
+L'application est déployée sur [Render](https://render.com).
