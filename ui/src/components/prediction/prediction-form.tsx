@@ -62,7 +62,7 @@ export function PredictionForm({
   return (
     <Card
       className={cn(
-        'w-full flex-1 overflow-auto bg-white/80 shadow-md transition-shadow duration-300 hover:shadow-lg',
+        'w-full flex-1 overflow-auto shadow-md transition-shadow duration-300 hover:shadow-lg',
         realtimeMode ? 'bg-background/10 border-0' : '',
       )}
     >
