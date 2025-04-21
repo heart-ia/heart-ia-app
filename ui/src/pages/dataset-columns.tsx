@@ -38,7 +38,7 @@ const GenderRenderer = (props: ICellRendererParams) => {
         className={`inline-flex items-center justify-center rounded-md px-2 py-1 text-xs font-medium ${
           isFemme
             ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
-            : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+            : 'bg-blue-100 dark:bg-blue-900 dark:text-blue-200'
         }`}
       >
         {isFemme ? <span>👩</span> : <span>👨</span>}
