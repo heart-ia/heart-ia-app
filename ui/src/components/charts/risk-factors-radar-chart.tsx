@@ -7,12 +7,12 @@ import {
   CardTitle,
 } from '@/components/ui/card.tsx';
 import {
-  RadarChart,
-  PolarGrid,
+  Legend,
   PolarAngleAxis,
+  PolarGrid,
   PolarRadiusAxis,
   Radar,
-  Legend,
+  RadarChart,
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
@@ -22,7 +22,9 @@ interface RiskFactorsRadarChartProps {
   data?: RiskFactorsRadarChartData;
 }
 
-export function RiskFactorsRadarChart({ data: riskFactorsRadar }: RiskFactorsRadarChartProps) {
+export function RiskFactorsRadarChart({
+  data: riskFactorsRadar,
+}: RiskFactorsRadarChartProps) {
   if (!riskFactorsRadar) {
     return null;
   }

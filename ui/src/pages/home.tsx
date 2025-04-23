@@ -1,14 +1,14 @@
 import {
-  Heart,
-  Brain,
   Activity,
-  Users,
-  Database,
-  ChevronRight,
-  BarChart2,
-  Shield,
-  BookOpen,
   ArrowRight,
+  BarChart2,
+  BookOpen,
+  Brain,
+  ChevronRight,
+  Database,
+  Heart,
+  Shield,
+  Users,
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';

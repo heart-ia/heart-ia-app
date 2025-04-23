@@ -9,7 +9,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.routers import cardio, root
+from api.routers import cardio, prediction, root
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -30,3 +30,4 @@ app.add_middleware(
 # Include routers
 app.include_router(root.router)
 app.include_router(cardio.router)
+app.include_router(prediction.router)

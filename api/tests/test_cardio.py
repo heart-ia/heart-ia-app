@@ -5,7 +5,7 @@ This module contains tests for the cardio router endpoints.
 """
 
 import pytest
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 
 from api.models.cardio import ChartData, CorrelationAnalysis, Dataset, DatasetStatistics
 

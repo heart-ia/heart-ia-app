@@ -31,7 +31,6 @@ interface SmokingChartProps {
 }
 
 export function SmokingChart({ data: smokingDistribution }: SmokingChartProps) {
-
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null
   >(null);

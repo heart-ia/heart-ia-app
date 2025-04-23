@@ -35,7 +35,9 @@ interface CorrelationMatrixChartProps {
   data?: CorrelationAnalysis;
 }
 
-export function CorrelationMatrixChart({ data: correlationAnalysis }: CorrelationMatrixChartProps) {
+export function CorrelationMatrixChart({
+  data: correlationAnalysis,
+}: CorrelationMatrixChartProps) {
   if (!correlationAnalysis) {
     return null;
   }
