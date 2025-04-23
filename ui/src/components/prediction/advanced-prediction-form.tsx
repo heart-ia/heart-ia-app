@@ -188,7 +188,7 @@ export function AdvancedPredictionForm({
 
             <div
               className={cn(
-                'sticky bottom-0 z-10 mt-6 flex flex-col gap-2 rounded-lg bg-white/90 p-4 shadow-md sm:flex-row',
+                'sticky bottom-0 z-10 mt-6 flex flex-col gap-2 rounded-lg p-4 shadow-md sm:flex-row',
                 realtimeMode ? 'hidden sm:flex-row' : '',
               )}
             >
