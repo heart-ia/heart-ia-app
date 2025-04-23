@@ -15,7 +15,10 @@ from api.services.prediction_service import InputData, UserInputData, Prediction
 @pytest.fixture
 def client():
     """Create a test client for the FastAPI app."""
-    client = TestClient(app)
+    # Create a TestClient without passing app directly to the constructor
+    # This avoids the "TypeError: Client.__init__() got an unexpected keyword argument 'app'" error
+    client = TestClient()
+    client.app = app
     return client
 
 
