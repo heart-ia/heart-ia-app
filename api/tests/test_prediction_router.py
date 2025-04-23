@@ -15,10 +15,24 @@ from api.services.prediction_service import InputData, UserInputData, Prediction
 @pytest.fixture
 def client():
     """Create a test client for the FastAPI app."""
-    # Create a TestClient without passing app directly to the constructor
-    # This avoids the "TypeError: Client.__init__() got an unexpected keyword argument 'app'" error
-    client = TestClient()
-    client.app = app
+    # Handle both local and CI environments
+    # In local environment, TestClient requires app parameter
+    # In CI environment, TestClient doesn't accept app parameter in super().__init__()
+    try:
+        # Try the standard way first (works in local environment)
+        client = TestClient(app)
+    except TypeError:
+        # If that fails, try the alternative way (for CI environment)
+        from httpx import ASGITransport
+        from starlette.types import ASGIApp
+
+        # Create a TestClient with base_url and transport parameters
+        transport = ASGITransport(app=app)
+        client = TestClient(
+            base_url="http://testserver",
+            transport=transport
+        )
+
     return client
 
 
