@@ -6,7 +6,7 @@ This module contains tests for the prediction router.
 
 import pytest
 from unittest.mock import patch, MagicMock
-from fastapi.testclient import TestClient
+from starlette.testclient import TestClient
 
 from api.main import app
 from api.services.prediction_service import InputData, UserInputData, PredictionService, CholesterolLevel
@@ -15,7 +15,8 @@ from api.services.prediction_service import InputData, UserInputData, Prediction
 @pytest.fixture
 def client():
     """Create a test client for the FastAPI app."""
-    return TestClient(app)
+    client = TestClient(app)
+    return client
 
 
 @pytest.fixture
