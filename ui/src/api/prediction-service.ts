@@ -13,12 +13,12 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 // Define the schema for user input data
 export const userInputSchema = z
   .object({
-    age: z.number().int().min(0).max(120),
+    age: z.number().min(0).max(120),
     weight: z.number().positive().max(300),
     height: z.number().positive().max(250),
-    ap_hi: z.number().int().min(90).max(200),
-    ap_lo: z.number().int().min(60).max(140),
-    cholesterol: z.number().int().min(1).max(3),
+    ap_hi: z.number().min(0).max(200),
+    ap_lo: z.number().min(0).max(140),
+    cholesterol: z.number().min(1).max(3),
   })
   .refine((data) => data.ap_lo < data.ap_hi, {
     message:
@@ -29,7 +29,6 @@ export const userInputSchema = z
 // Define the schema for advanced input data
 export const advancedInputSchema = z.object({
   risk_score: z.number(),
-  age_x_cholesterol: z.number(),
   ap_hi: z.number(),
   IMC: z.number().max(50),
   map: z.number().max(150),
@@ -89,7 +88,6 @@ export async function predictFromAdvancedData(
   const inputData = {
     features: [
       data.risk_score,
-      data.age_x_cholesterol,
       data.ap_hi,
       data.IMC,
       data.map,
@@ -163,7 +161,10 @@ export function useRealtimePrediction(data: UserInputData, enabled: boolean) {
  * @param enabled Whether to enable the query
  * @returns Query result with prediction data
  */
-export function useRealtimeAdvancedPrediction(data: AdvancedInputData, enabled: boolean) {
+export function useRealtimeAdvancedPrediction(
+  data: AdvancedInputData,
+  enabled: boolean,
+) {
   return useQuery({
     queryKey: ['advanced-prediction', data],
     queryFn: () => predictFromAdvancedData(data),

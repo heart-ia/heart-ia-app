@@ -11,8 +11,6 @@ from typing import Dict, List, Union, Optional
 import joblib
 import numpy as np
 from pydantic import BaseModel, Field, validator
-from sklearn.preprocessing import StandardScaler
-
 
 class CholesterolLevel(IntEnum):
     """Cholesterol level enumeration."""
@@ -31,8 +29,8 @@ class UserInputData(BaseModel):
     age: int = Field(..., description="Age in years", ge=0, le=120)
     weight: float = Field(..., description="Weight in kg", gt=0, le=300)
     height: float = Field(..., description="Height in cm", gt=0, le=250)
-    ap_hi: int = Field(..., description="Systolic blood pressure (mmHg)", ge=90, le=200)
-    ap_lo: int = Field(..., description="Diastolic blood pressure (mmHg)", ge=60, le=140)
+    ap_hi: int = Field(..., description="Systolic blood pressure (mmHg)", ge=10, le=200)
+    ap_lo: int = Field(..., description="Diastolic blood pressure (mmHg)", ge=10, le=140)
     cholesterol: CholesterolLevel = Field(..., description="Cholesterol level (1=normal, 2=above normal, 3=well above normal)")
 
     @validator('ap_lo')
@@ -55,10 +53,9 @@ class PredictionService:
         )
 
         try:
-            self.model = joblib.load(os.path.join(joblibs_path, "mlp_modele_f1_073.joblib"))
+            self.model = joblib.load(os.path.join(joblibs_path, "mlp_modele_f1_0736.joblib"))
             self.threshold = joblib.load(os.path.join(joblibs_path, "seuil_optimal.joblib"))
-            # Initialize a standard scaler for feature normalization
-            self.scaler = StandardScaler()
+            self.scaler = joblib.load(os.path.join(joblibs_path, "scaler.save"))
         except (FileNotFoundError, IOError) as e:
             raise RuntimeError(f"Failed to load model or threshold: {str(e)}")
 
@@ -85,12 +82,8 @@ class PredictionService:
         # Calculate mean arterial pressure (MAP)
         map_value = (data.ap_hi + 2 * data.ap_lo) / 3
 
-        # Calculate age x cholesterol interaction
-        age_x_cholesterol = data.age * int(data.cholesterol)
-
         return {
             'risk_score': risk_score,
-            'age_x_cholesterol': age_x_cholesterol,
             'ap_hi': float(data.ap_hi),
             'IMC': imc,
             'map': map_value,
@@ -109,18 +102,11 @@ class PredictionService:
             Normalized features as numpy array
         """
         # Extract features in the correct order
-        feature_order = ['risk_score', 'age_x_cholesterol', 'ap_hi', 'IMC', 'map', 'age', 'cholesterol']
+        feature_order = ['risk_score', 'ap_hi', 'IMC', 'map', 'age', 'cholesterol']
         feature_values = [features[feature] for feature in feature_order]
 
         # Convert to numpy array
-        feature_array = np.array(feature_values).reshape(1, -1)
-
-        # Normalize all features except cholesterol (which is already encoded)
-        # In a real-world scenario, we would use a pre-fitted scaler
-        # Here we're just standardizing the values on-the-fly
-        feature_array[:, :6] = self.scaler.fit_transform(feature_array[:, :6].reshape(-1, 1)).reshape(1, -1)[:, :6]
-
-        return feature_array
+        return np.array(feature_values).reshape(1, -1)
 
     def predict(self, data: Union[InputData, UserInputData]) -> Dict[str, Union[float, int]]:
         """
@@ -141,17 +127,15 @@ class PredictionService:
             if isinstance(data, UserInputData):
                 # Calculate features from user input
                 features = self.calculate_features(data)
-
-                # Normalize features
                 x = self.normalize_features(features)
 
             else:
-                # Legacy support for direct feature input
                 x = np.array(data.features).reshape(1, -1)
 
-            print(x)
+            x_scaled = self.scaler.transform(x)
+
             # Get prediction probability
-            prob = self.model.predict_proba(x)[0][1]
+            prob = self.model.predict_proba(x_scaled)[0][1]
 
             # Determine prediction based on threshold
             prediction = int(prob >= self.threshold)

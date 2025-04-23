@@ -1,12 +1,12 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDebounce } from '@/hooks/use-debounce';
-import { 
-  UserInputData, 
-  userInputSchema, 
-  usePrediction, 
-  useRealtimePrediction 
+import {
+  usePrediction,
+  useRealtimePrediction,
+  UserInputData,
+  userInputSchema,
 } from '@/api/prediction-service';
 
 /**
@@ -18,11 +18,11 @@ export function usePredictionForm() {
 
   // Default values for the form
   const defaultValues = {
-    age: 40,
+    age: 20,
     weight: 70,
     height: 170,
-    ap_hi: 120,
-    ap_lo: 80,
+    ap_hi: 100,
+    ap_lo: 65,
     cholesterol: 1,
   };
 
@@ -94,9 +94,6 @@ export function usePredictionForm() {
     form.reset(defaultValues);
     // Clear any existing prediction results
     prediction.reset();
-    if (realtimeMode) {
-      realtimePrediction.remove();
-    }
   };
 
   // Handle errors from both sources

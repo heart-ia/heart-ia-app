@@ -2,11 +2,11 @@ import { useState, useMemo, useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDebounce } from '@/hooks/use-debounce';
-import { 
-  AdvancedInputData, 
-  advancedInputSchema, 
-  useAdvancedPrediction, 
-  useRealtimeAdvancedPrediction 
+import {
+  AdvancedInputData,
+  advancedInputSchema,
+  useAdvancedPrediction,
+  useRealtimeAdvancedPrediction,
 } from '@/api/prediction-service';
 
 /**
@@ -18,12 +18,11 @@ export function useAdvancedPredictionForm() {
 
   // Default values for the form
   const defaultValues = {
-    risk_score: 100,
-    age_x_cholesterol: 50,
-    ap_hi: 120,
-    IMC: 25,
-    map: 90,
-    age: 40,
+    risk_score: 0,
+    ap_hi: 0,
+    IMC: 0,
+    map: 0,
+    age: 0,
     cholesterol: 1,
   };
 
@@ -51,7 +50,6 @@ export function useAdvancedPredictionForm() {
       if (
         !valuesToValidate ||
         !valuesToValidate.risk_score ||
-        !valuesToValidate.age_x_cholesterol ||
         !valuesToValidate.ap_hi ||
         !valuesToValidate.IMC ||
         !valuesToValidate.map ||
@@ -96,9 +94,6 @@ export function useAdvancedPredictionForm() {
     form.reset(defaultValues);
     // Clear any existing prediction results
     prediction.reset();
-    if (realtimeMode) {
-      realtimePrediction.remove();
-    }
   };
 
   // Handle errors from both sources

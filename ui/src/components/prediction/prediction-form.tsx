@@ -120,35 +120,37 @@ export function PredictionForm({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="weight"
-              render={({ field }) => (
-                <SliderField
-                  field={field}
-                  label="Poids (kg)"
-                  icon={<Weight className="h-4 w-4" />}
-                  min={40}
-                  max={200}
-                  description="Votre poids en kilogrammes"
-                />
-              )}
-            />
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="weight"
+                render={({ field }) => (
+                  <SliderField
+                    field={field}
+                    label="Poids (kg)"
+                    icon={<Weight className="h-4 w-4" />}
+                    min={40}
+                    max={200}
+                    description="Votre poids en kilogrammes"
+                  />
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="height"
-              render={({ field }) => (
-                <SliderField
-                  field={field}
-                  label="Taille (cm)"
-                  icon={<Ruler className="h-4 w-4" />}
-                  min={50}
-                  max={220}
-                  description="Votre taille en centimètres"
-                />
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="height"
+                render={({ field }) => (
+                  <SliderField
+                    field={field}
+                    label="Taille (cm)"
+                    icon={<Ruler className="h-4 w-4" />}
+                    min={50}
+                    max={220}
+                    description="Votre taille en centimètres"
+                  />
+                )}
+              />
+            </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField
@@ -173,7 +175,7 @@ export function PredictionForm({
                     field={field}
                     label="Pression diastolique (mmHg)"
                     icon={<Heart className="h-4 w-4 text-blue-500" />}
-                    min={60}
+                    min={10}
                     max={140}
                   />
                 )}

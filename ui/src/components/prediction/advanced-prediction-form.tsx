@@ -1,7 +1,6 @@
 import {
   Activity,
   BarChart,
-  Calculator,
   Heart,
   Loader2,
   Ruler,
@@ -103,22 +102,6 @@ export function AdvancedPredictionForm({
                   max={2}
                   step={0.1}
                   description="Score de risque calculé (0.6 * ap_hi + 0.4 * cholesterol + 0.3 * age)"
-                />
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="age_x_cholesterol"
-              render={({ field }) => (
-                <SliderField
-                  field={field}
-                  label="Âge x Cholestérol"
-                  icon={<Calculator className="h-4 w-4 text-blue-500" />}
-                  min={-2}
-                  max={2}
-                  step={0.1}
-                  description="Interaction entre l'âge et le niveau de cholestérol"
                 />
               )}
             />
