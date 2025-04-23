@@ -1,5 +1,4 @@
-fastapi==0.104.1
-starlette>=0.27.0
+fastapi
 uvicorn
 pytest
 httpx
