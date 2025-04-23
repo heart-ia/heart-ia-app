@@ -111,15 +111,15 @@ export function PredictionResults({
         ) : (
           // Fallback loading state (should rarely be seen)
           <div className="flex flex-col items-center justify-center space-y-4">
-            <div className="flex h-56 w-56 items-center justify-center rounded-full bg-gray-100">
+            <div className="flex h-56 w-56 items-center justify-center rounded-full">
               <p className="text-gray-400">Chargement...</p>
             </div>
           </div>
         )}
       </CardContent>
-      <CardFooter className="border-t bg-gray-50 p-3 sm:p-4">
-        <div className="flex items-start justify-center gap-2 text-center text-xs text-gray-500 sm:items-center sm:text-sm">
-          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-500 sm:mt-0" />
+      <CardFooter className="border-t p-3 sm:p-4">
+        <div className="flex items-start justify-center gap-2 text-xs">
+          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 sm:mt-0" />
           <p className="text-left sm:text-center">
             Cette prédiction est basée sur un modèle d'intelligence artificielle
             et ne remplace pas l'avis d'un professionnel de santé.

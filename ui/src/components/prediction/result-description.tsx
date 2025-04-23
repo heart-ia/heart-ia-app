@@ -16,7 +16,7 @@ const ResultDescription = memo(({ result }: ResultDescriptionProps) => {
 
   return (
     <motion.div
-      className="rounded-lg bg-gray-50 p-6"
+      className="bg-accent rounded-lg p-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.2 }}
@@ -34,7 +34,7 @@ const ResultDescription = memo(({ result }: ResultDescriptionProps) => {
           </>
         )}
       </h3>
-      <p className="text-gray-600">
+      <p className="text-accent-foreground">
         {isHighRisk
           ? 'Selon notre modèle, vous présentez un risque élevé de maladie cardiovasculaire. Nous vous recommandons de consulter un professionnel de santé.'
           : 'Selon notre modèle, vous présentez un risque faible de maladie cardiovasculaire. Continuez à maintenir un mode de vie sain.'}

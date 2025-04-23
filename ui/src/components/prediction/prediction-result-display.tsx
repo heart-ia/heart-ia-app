@@ -61,7 +61,7 @@ const PredictionResultDisplay = memo(
               repeatDelay: 1,
             }}
           >
-            <div className="flex h-52 w-52 flex-col items-center justify-center rounded-full bg-white">
+            <div className="bg-accent flex h-52 w-52 flex-col items-center justify-center rounded-full">
               {isHighRisk ? (
                 <ShieldAlert className="mb-2 h-10 w-10 text-red-500" />
               ) : (
