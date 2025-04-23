@@ -30,9 +30,9 @@ export const userInputSchema = z
 export const advancedInputSchema = z.object({
   risk_score: z.number(),
   ap_hi: z.number(),
-  IMC: z.number().max(50),
-  map: z.number().max(150),
-  age: z.number().max(120),
+  IMC: z.number().max(2),
+  map: z.number().max(2),
+  age: z.number().min(-2).max(2),
   cholesterol: z.number().max(3),
 });
 

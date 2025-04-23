@@ -6,11 +6,12 @@ This module provides services for predicting cardiovascular disease using a trai
 
 import os
 from enum import IntEnum
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union
 
 import joblib
 import numpy as np
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
+
 
 class CholesterolLevel(IntEnum):
     """Cholesterol level enumeration."""
@@ -33,9 +34,11 @@ class UserInputData(BaseModel):
     ap_lo: int = Field(..., description="Diastolic blood pressure (mmHg)", ge=10, le=140)
     cholesterol: CholesterolLevel = Field(..., description="Cholesterol level (1=normal, 2=above normal, 3=well above normal)")
 
-    @validator('ap_lo')
-    def validate_blood_pressure(cls, ap_lo, values):
+    @field_validator('ap_lo')
+    @classmethod
+    def validate_blood_pressure(cls, ap_lo, info):
         """Validate that diastolic pressure is lower than systolic pressure."""
+        values = info.data
         if 'ap_hi' in values and ap_lo >= values['ap_hi']:
             raise ValueError("Diastolic pressure (ap_lo) must be lower than systolic pressure (ap_hi)")
         return ap_lo

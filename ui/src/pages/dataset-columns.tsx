@@ -1,6 +1,6 @@
 import { ColDef, ICellRendererParams } from 'ag-grid-enterprise';
 import { DatasetType } from '@/types/cardio.ts';
-import { Heart, HeartPulse, Cigarette, Wine, Activity, X } from 'lucide-react';
+import { Activity, Cigarette, Heart, HeartPulse, Wine, X } from 'lucide-react';
 
 // Custom cell renderer for Cardio column
 const CardioRenderer = (props: ICellRendererParams) => {

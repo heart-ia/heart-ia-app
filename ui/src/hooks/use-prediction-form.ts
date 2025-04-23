@@ -62,10 +62,10 @@ export function usePredictionForm() {
       // Validate with zod schema
       const result = userInputSchema.safeParse(valuesToValidate);
       return result.success ? result.data : null;
-    } catch (error) {
+    } catch {
       return null;
     }
-  }, [valuesToValidate, realtimeMode]);
+  }, [valuesToValidate]);
 
   // Use React Query for predictions
   const prediction = usePrediction();
@@ -96,8 +96,9 @@ export function usePredictionForm() {
     prediction.reset();
   };
 
-  // Handle errors from both sources
-  const handleErrors = () => {
+  // Call handleErrors when errors change
+  useEffect(() => {
+    // Handle errors from both sources
     if (prediction.error) {
       setError(
         prediction.error.message || 'An error occurred during prediction',
@@ -110,11 +111,6 @@ export function usePredictionForm() {
     } else {
       setError(null);
     }
-  };
-
-  // Call handleErrors when errors change
-  useEffect(() => {
-    handleErrors();
   }, [prediction.error, realtimePrediction.error, realtimeMode]);
 
   return {

@@ -30,8 +30,9 @@ interface AgeDistributionChartProps {
   data?: AgeDistributionChartData;
 }
 
-export function AgeDistributionChart({ data: ageDistribution }: AgeDistributionChartProps) {
-
+export function AgeDistributionChart({
+  data: ageDistribution,
+}: AgeDistributionChartProps) {
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null
   >(null);

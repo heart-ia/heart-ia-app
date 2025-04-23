@@ -1,18 +1,18 @@
 import { ReactNode } from 'react';
 import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
-import { 
-  FormControl, 
-  FormDescription, 
-  FormItem, 
-  FormLabel, 
-  FormMessage 
+import {
+  FormControl,
+  FormDescription,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 
 interface SliderFieldProps<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > {
   field: ControllerRenderProps<TFieldValues, TName>;
   label: ReactNode;
@@ -28,7 +28,7 @@ interface SliderFieldProps<
  */
 export function SliderField<
   TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
   field,
   label,

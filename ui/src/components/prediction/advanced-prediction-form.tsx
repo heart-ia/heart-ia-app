@@ -130,8 +130,8 @@ export function AdvancedPredictionForm({
                   field={field}
                   label="IMC (kg/m²)"
                   icon={<Scale className="h-4 w-4 text-green-500" />}
-                  min={-10}
-                  max={50}
+                  min={-2}
+                  max={2}
                   step={0.1}
                   description="Indice de masse corporelle (poids / taille²)"
                 />
@@ -146,8 +146,8 @@ export function AdvancedPredictionForm({
                   field={field}
                   label="MAP (mmHg)"
                   icon={<Activity className="h-4 w-4 text-purple-500" />}
-                  min={-70}
-                  max={150}
+                  min={-2}
+                  max={2}
                   step={0.1}
                   description="Pression artérielle moyenne ((ap_hi + 2 * ap_lo) / 3)"
                 />
@@ -162,8 +162,8 @@ export function AdvancedPredictionForm({
                   field={field}
                   label="Âge (années)"
                   icon={<Ruler className="h-4 w-4" />}
-                  min={-18}
-                  max={100}
+                  min={-2}
+                  max={2}
                   step={0.1}
                   description="Âge en années"
                 />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePredictionForm } from '@/hooks/use-prediction-form';
 import { useAdvancedPredictionForm } from '@/hooks/use-advanced-prediction-form';
 import { PredictionForm } from '@/components/prediction/prediction-form';
@@ -6,18 +6,13 @@ import { AdvancedPredictionForm } from '@/components/prediction/advanced-predict
 import { PredictionResults } from '@/components/prediction/prediction-results';
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerTrigger,
-  DrawerClose,
 } from '@/components/ui/drawer';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Menu, X, UserCircle, Code } from 'lucide-react';
+import { Code, Menu, UserCircle, X } from 'lucide-react';
 
 /**
  * Page component for cardiovascular disease prediction
@@ -58,7 +53,8 @@ export function PredictionPage() {
   // Determine which result and error to use based on the active tab
   const result = activeTab === 'user-friendly' ? userResult : advancedResult;
   const error = activeTab === 'user-friendly' ? userError : advancedError;
-  const realtimeMode = activeTab === 'user-friendly' ? userRealtimeMode : advancedRealtimeMode;
+  const realtimeMode =
+    activeTab === 'user-friendly' ? userRealtimeMode : advancedRealtimeMode;
 
   // Check if we're on mobile based on screen width
   useEffect(() => {
@@ -110,13 +106,23 @@ export function PredictionPage() {
                 <h3 className="mb-4 text-center text-lg font-semibold">
                   Formulaire de prédiction
                 </h3>
-                <Tabs defaultValue="user-friendly" onValueChange={setActiveTab} value={activeTab}>
-                  <TabsList className="grid w-full grid-cols-2 mb-6">
-                    <TabsTrigger value="user-friendly" className="flex items-center gap-1">
+                <Tabs
+                  defaultValue="user-friendly"
+                  onValueChange={setActiveTab}
+                  value={activeTab}
+                >
+                  <TabsList className="mb-6 grid w-full grid-cols-2">
+                    <TabsTrigger
+                      value="user-friendly"
+                      className="flex items-center gap-1"
+                    >
                       <UserCircle className="h-4 w-4" />
                       <span className="hidden sm:inline">Mode</span> Simplifié
                     </TabsTrigger>
-                    <TabsTrigger value="advanced" className="flex items-center gap-1">
+                    <TabsTrigger
+                      value="advanced"
+                      className="flex items-center gap-1"
+                    >
                       <Code className="h-4 w-4" />
                       <span className="hidden sm:inline">Mode</span> Avancé
                     </TabsTrigger>
@@ -153,9 +159,16 @@ export function PredictionPage() {
       <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
         {/* Form component - only visible on desktop */}
         {!isMobile && (
-          <Tabs defaultValue="user-friendly" onValueChange={setActiveTab} value={activeTab}>
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="user-friendly" className="flex items-center gap-1">
+          <Tabs
+            defaultValue="user-friendly"
+            onValueChange={setActiveTab}
+            value={activeTab}
+          >
+            <TabsList className="mb-6 grid w-full grid-cols-2">
+              <TabsTrigger
+                value="user-friendly"
+                className="flex items-center gap-1"
+              >
                 <UserCircle className="h-4 w-4" />
                 Mode Simplifié
               </TabsTrigger>

@@ -30,8 +30,9 @@ interface GenderDistributionChartProps {
   data?: GenderDistributionChartData;
 }
 
-export function GenderDistributionChart({ data: genderDistribution }: GenderDistributionChartProps) {
-
+export function GenderDistributionChart({
+  data: genderDistribution,
+}: GenderDistributionChartProps) {
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null
   >(null);

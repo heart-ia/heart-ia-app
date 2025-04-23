@@ -30,8 +30,9 @@ interface PhysicalActivityChartProps {
   data?: PhysicalActivityChartData;
 }
 
-export function PhysicalActivityChart({ data: physicalActivityDistribution }: PhysicalActivityChartProps) {
-
+export function PhysicalActivityChart({
+  data: physicalActivityDistribution,
+}: PhysicalActivityChartProps) {
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null
   >(null);

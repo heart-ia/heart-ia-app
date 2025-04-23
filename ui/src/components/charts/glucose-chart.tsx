@@ -31,7 +31,6 @@ interface GlucoseChartProps {
 }
 
 export function GlucoseChart({ data: glucoseDistribution }: GlucoseChartProps) {
-
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null
   >(null);

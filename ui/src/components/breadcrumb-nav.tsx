@@ -7,7 +7,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { useRouter, useRouterState } from '@tanstack/react-router';
-import { Home, Activity, Database, Calculator } from 'lucide-react';
+import { Activity, Calculator, Database, Home } from 'lucide-react';
 import * as React from 'react';
 
 interface PathInfo {

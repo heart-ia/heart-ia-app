@@ -3,10 +3,10 @@ import { Header } from '@/components/header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import {
   Outlet,
-  RouterProvider,
-  Router,
-  Route,
   RootRoute,
+  Route,
+  Router,
+  RouterProvider,
 } from '@tanstack/react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HomePage } from '@/pages/home';

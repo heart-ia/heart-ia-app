@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDebounce } from '@/hooks/use-debounce';
@@ -62,10 +62,10 @@ export function useAdvancedPredictionForm() {
       // Validate with zod schema
       const result = advancedInputSchema.safeParse(valuesToValidate);
       return result.success ? result.data : null;
-    } catch (error) {
+    } catch {
       return null;
     }
-  }, [valuesToValidate, realtimeMode]);
+  }, [valuesToValidate]);
 
   // Use React Query for predictions
   const prediction = useAdvancedPrediction();
@@ -96,8 +96,9 @@ export function useAdvancedPredictionForm() {
     prediction.reset();
   };
 
-  // Handle errors from both sources
-  const handleErrors = () => {
+  // Call handleErrors when errors change
+  useEffect(() => {
+    // Handle errors from both sources
     if (prediction.error) {
       setError(
         prediction.error.message || 'An error occurred during prediction',
@@ -110,11 +111,6 @@ export function useAdvancedPredictionForm() {
     } else {
       setError(null);
     }
-  };
-
-  // Call handleErrors when errors change
-  useEffect(() => {
-    handleErrors();
   }, [prediction.error, realtimePrediction.error, realtimeMode]);
 
   return {

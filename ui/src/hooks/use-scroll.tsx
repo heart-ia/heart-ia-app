@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * Hook that tracks window scroll position
@@ -17,10 +17,10 @@ export function useScroll() {
 
     // Add event listener
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     // Call handler right away to update initial state
     handleScroll();
-    
+
     // Remove event listener on cleanup
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

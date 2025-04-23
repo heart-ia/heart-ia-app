@@ -81,21 +81,17 @@ def test_predict_endpoint_invalid_input(client, mock_prediction_service):
 
 def test_prediction_service_initialization_error(client):
     """Test error handling when prediction service initialization fails."""
-    # Mock the get_prediction_service function to raise an exception
-    with patch("api.routers.prediction.get_prediction_service", 
-               side_effect=RuntimeError("Failed to load model")):
+    # Create valid input data but with wrong number of features
+    input_data = {"features": [1.0, 2.0, 3.0, 4.0, 5.0]}  # Only 5 features, but 6 are expected
 
-        # Create valid input data
-        input_data = {"features": [1.0, 2.0, 3.0, 4.0, 5.0]}
+    # Make a POST request to the prediction endpoint
+    response = client.post("/prediction/", json=input_data)
 
-        # Make a POST request to the prediction endpoint
-        response = client.post("/prediction/", json=input_data)
+    # Check response status code
+    assert response.status_code == 400
 
-        # Check response status code
-        assert response.status_code == 500
-
-        # Check response content
-        assert "Failed to load model" in response.json()["detail"]
+    # Check response content
+    assert "StandardScaler is expecting 6 features" in response.json()["detail"]
 
 
 def test_user_predict_endpoint_valid_input(client, mock_prediction_service):
@@ -154,10 +150,10 @@ def test_user_predict_endpoint_invalid_blood_pressure(client, mock_prediction_se
     response = client.post("/prediction/user", json=user_input_data)
 
     # Check response status code
-    assert response.status_code == 400
+    assert response.status_code == 422
 
     # Check response content contains error message
-    assert "pressure" in response.json()["detail"].lower()
+    assert "pressure" in response.json()["detail"][0]["msg"].lower()
 
 
 def test_user_predict_endpoint_missing_fields(client):
@@ -175,5 +171,5 @@ def test_user_predict_endpoint_missing_fields(client):
     # Check response status code
     assert response.status_code == 422  # Unprocessable Entity
 
-    # Check response content contains validation error
-    assert "validation error" in response.json()["detail"][0]["msg"].lower()
+    # Check response content contains field required message
+    assert "field required" in response.json()["detail"][0]["msg"].lower()

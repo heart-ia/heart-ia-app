@@ -30,8 +30,9 @@ interface CholesterolDistributionChartProps {
   data?: CholesterolChartData;
 }
 
-export function CholesterolDistributionChart({ data: cholesterolDistribution }: CholesterolDistributionChartProps) {
-
+export function CholesterolDistributionChart({
+  data: cholesterolDistribution,
+}: CholesterolDistributionChartProps) {
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig | null
   >(null);
