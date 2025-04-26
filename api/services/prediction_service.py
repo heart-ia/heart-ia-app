@@ -56,9 +56,9 @@ class PredictionService:
         )
 
         try:
-            self.model = joblib.load(os.path.join(joblibs_path, "mlp_modele_f1_0736.joblib"))
+            self.model = joblib.load(os.path.join(joblibs_path, "modele_mlp_optimise.joblib"))
             self.threshold = joblib.load(os.path.join(joblibs_path, "seuil_optimal.joblib"))
-            self.scaler = joblib.load(os.path.join(joblibs_path, "scaler.save"))
+            self.scaler = joblib.load(os.path.join(joblibs_path, "scalerValide.save"))
         except (FileNotFoundError, IOError) as e:
             raise RuntimeError(f"Failed to load model or threshold: {str(e)}")
 
