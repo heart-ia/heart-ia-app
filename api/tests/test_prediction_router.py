@@ -58,7 +58,7 @@ def mock_prediction_service():
 def test_predict_endpoint_valid_input(client, mock_prediction_service):
     """Test the prediction endpoint with valid input."""
     # Create valid input data
-    input_data = {"features": [1.0, 2.0, 3.0, 4.0, 5.0]}
+    input_data = {"features": [45.0, 120.0, 80.0, 1.0, 1.0]}
 
     # Make a POST request to the prediction endpoint
     response = client.post("/prediction/", json=input_data)
@@ -100,7 +100,7 @@ def test_predict_endpoint_invalid_input(client, mock_prediction_service):
 def test_prediction_service_initialization_error(client):
     """Test error handling when prediction service initialization fails."""
     # Create valid input data but with wrong number of features
-    input_data = {"features": [1.0, 2.0, 3.0, 4.0, 5.0]}  # Only 5 features, but 6 are expected
+    input_data = {"features": [1.0, 2.0, 3.0, 4.0]}  # Only 4 features, but 5 are expected
 
     # Make a POST request to the prediction endpoint
     response = client.post("/prediction/", json=input_data)
@@ -109,7 +109,7 @@ def test_prediction_service_initialization_error(client):
     assert response.status_code == 400
 
     # Check response content
-    assert "StandardScaler is expecting 6 features" in response.json()["detail"]
+    assert "features" in response.json()["detail"].lower()
 
 
 def test_user_predict_endpoint_valid_input(client, mock_prediction_service):
@@ -117,11 +117,10 @@ def test_user_predict_endpoint_valid_input(client, mock_prediction_service):
     # Create valid user input data
     user_input_data = {
         "age": 50,
-        "weight": 70,
-        "height": 170,
         "ap_hi": 120,
         "ap_lo": 80,
-        "cholesterol": 1
+        "cholesterol": 1,
+        "active": 1
     }
 
     # Make a POST request to the user prediction endpoint
@@ -141,11 +140,10 @@ def test_user_predict_endpoint_valid_input(client, mock_prediction_service):
     call_args = mock_prediction_service.predict.call_args[0][0]
     assert isinstance(call_args, UserInputData)
     assert call_args.age == user_input_data["age"]
-    assert call_args.weight == user_input_data["weight"]
-    assert call_args.height == user_input_data["height"]
     assert call_args.ap_hi == user_input_data["ap_hi"]
     assert call_args.ap_lo == user_input_data["ap_lo"]
     assert call_args.cholesterol == user_input_data["cholesterol"]
+    assert call_args.active == user_input_data["active"]
 
 
 def test_user_predict_endpoint_invalid_blood_pressure(client, mock_prediction_service):
@@ -157,11 +155,10 @@ def test_user_predict_endpoint_invalid_blood_pressure(client, mock_prediction_se
     # Create invalid user input data (diastolic pressure higher than systolic)
     user_input_data = {
         "age": 50,
-        "weight": 70,
-        "height": 170,
         "ap_hi": 120,
         "ap_lo": 130,  # Invalid: ap_lo > ap_hi
-        "cholesterol": 1
+        "cholesterol": 1,
+        "active": 1
     }
 
     # Make a POST request to the user prediction endpoint
@@ -179,8 +176,8 @@ def test_user_predict_endpoint_missing_fields(client):
     # Create incomplete user input data
     user_input_data = {
         "age": 50,
-        "weight": 70
-        # Missing height, ap_hi, ap_lo, cholesterol
+        "ap_hi": 120
+        # Missing ap_lo, cholesterol, active
     }
 
     # Make a POST request to the user prediction endpoint

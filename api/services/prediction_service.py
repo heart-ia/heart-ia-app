@@ -28,11 +28,11 @@ class InputData(BaseModel):
 class UserInputData(BaseModel):
     """User input data model for cardiovascular disease prediction."""
     age: int = Field(..., description="Age in years", ge=0, le=120)
-    weight: float = Field(..., description="Weight in kg", gt=0, le=300)
-    height: float = Field(..., description="Height in cm", gt=0, le=250)
     ap_hi: int = Field(..., description="Systolic blood pressure (mmHg)", ge=10, le=200)
     ap_lo: int = Field(..., description="Diastolic blood pressure (mmHg)", ge=10, le=140)
-    cholesterol: CholesterolLevel = Field(..., description="Cholesterol level (1=normal, 2=above normal, 3=well above normal)")
+    cholesterol: CholesterolLevel = Field(...,
+                                          description="Cholesterol level (1=normal, 2=above normal, 3=well above normal)")
+    active: int = Field(..., description="Physical activity (0=no, 1=yes)", ge=0, le=1)
 
     @field_validator('ap_lo')
     @classmethod
@@ -56,9 +56,9 @@ class PredictionService:
         )
 
         try:
-            self.model = joblib.load(os.path.join(joblibs_path, "modele_mlp_optimise.joblib"))
+            self.model = joblib.load(os.path.join(joblibs_path, "modele_mlp_optimise-final.joblib"))
             self.threshold = joblib.load(os.path.join(joblibs_path, "seuil_optimal.joblib"))
-            self.scaler = joblib.load(os.path.join(joblibs_path, "scalerValide.save"))
+            self.scaler = joblib.load(os.path.join(joblibs_path, "scalerValide-final.save"))
         except (FileNotFoundError, IOError) as e:
             raise RuntimeError(f"Failed to load model or threshold: {str(e)}")
 
@@ -72,26 +72,12 @@ class PredictionService:
         Returns:
             Dict containing all features needed for prediction
         """
-        # Calculate BMI (IMC)
-        imc = data.weight / ((data.height / 100) ** 2)
-
-        # Calculate risk score
-        risk_score = (
-            0.6 * data.ap_hi +
-            0.4 * int(data.cholesterol) +
-            0.3 * data.age
-        )
-
-        # Calculate mean arterial pressure (MAP)
-        map_value = (data.ap_hi + 2 * data.ap_lo) / 3
-
         return {
-            'risk_score': risk_score,
-            'ap_hi': float(data.ap_hi),
-            'IMC': imc,
-            'map': map_value,
             'age': float(data.age),
-            'cholesterol': float(data.cholesterol)
+            'ap_hi': float(data.ap_hi),
+            'ap_lo': float(data.ap_lo),
+            'cholesterol': float(data.cholesterol),
+            'active': float(data.active)
         }
 
     def normalize_features(self, features: Dict[str, float]) -> np.ndarray:
@@ -105,7 +91,7 @@ class PredictionService:
             Normalized features as numpy array
         """
         # Extract features in the correct order
-        feature_order = ['risk_score', 'ap_hi', 'IMC', 'map', 'age', 'cholesterol']
+        feature_order = ['age', 'ap_hi', 'ap_lo', 'cholesterol', 'active']
         feature_values = [features[feature] for feature in feature_order]
 
         # Convert to numpy array
@@ -135,7 +121,9 @@ class PredictionService:
             else:
                 x = np.array(data.features).reshape(1, -1)
 
-            x_scaled = self.scaler.transform(x)
+            # Only scale the first 3 variables (age, ap_hi, ap_lo)
+            x_scaled = x.copy()
+            x_scaled[0, 0:3] = self.scaler.transform(x[:, 0:3])
 
             # Get prediction probability
             prob = self.model.predict_proba(x_scaled)[0][1]

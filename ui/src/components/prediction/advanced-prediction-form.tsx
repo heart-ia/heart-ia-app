@@ -1,10 +1,9 @@
 import {
   Activity,
-  BarChart,
+  Calendar,
+  Droplet,
   Heart,
   Loader2,
-  Ruler,
-  Scale,
   Zap,
 } from 'lucide-react';
 import { Form, FormField } from '@/components/ui/form';
@@ -92,16 +91,16 @@ export function AdvancedPredictionForm({
           >
             <FormField
               control={form.control}
-              name="risk_score"
+              name="age"
               render={({ field }) => (
                 <SliderField
                   field={field}
-                  label="Score de risque"
-                  icon={<BarChart className="h-4 w-4 text-red-500" />}
+                  label="Âge (années)"
+                  icon={<Calendar className="h-4 w-4" />}
                   min={-2}
                   max={2}
                   step={0.1}
-                  description="Score de risque calculé (0.6 * ap_hi + 0.4 * cholesterol + 0.3 * age)"
+                  description="Âge en années (normalisé)"
                 />
               )}
             />
@@ -117,55 +116,23 @@ export function AdvancedPredictionForm({
                   min={-2}
                   max={2}
                   step={0.1}
-                  description="Pression artérielle systolique"
+                  description="Pression artérielle systolique (normalisée)"
                 />
               )}
             />
 
             <FormField
               control={form.control}
-              name="IMC"
+              name="ap_lo"
               render={({ field }) => (
                 <SliderField
                   field={field}
-                  label="IMC (kg/m²)"
-                  icon={<Scale className="h-4 w-4 text-green-500" />}
+                  label="Pression diastolique (mmHg)"
+                  icon={<Heart className="h-4 w-4 text-blue-500" />}
                   min={-2}
                   max={2}
                   step={0.1}
-                  description="Indice de masse corporelle (poids / taille²)"
-                />
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="map"
-              render={({ field }) => (
-                <SliderField
-                  field={field}
-                  label="MAP (mmHg)"
-                  icon={<Activity className="h-4 w-4 text-purple-500" />}
-                  min={-2}
-                  max={2}
-                  step={0.1}
-                  description="Pression artérielle moyenne ((ap_hi + 2 * ap_lo) / 3)"
-                />
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="age"
-              render={({ field }) => (
-                <SliderField
-                  field={field}
-                  label="Âge (années)"
-                  icon={<Ruler className="h-4 w-4" />}
-                  min={-2}
-                  max={2}
-                  step={0.1}
-                  description="Âge en années"
+                  description="Pression artérielle diastolique (normalisée)"
                 />
               )}
             />
@@ -177,11 +144,27 @@ export function AdvancedPredictionForm({
                 <SliderField
                   field={field}
                   label="Niveau de cholestérol"
-                  icon={<Heart className="h-4 w-4 text-yellow-500" />}
-                  min={-3}
+                  icon={<Droplet className="h-4 w-4 text-yellow-500" />}
+                  min={1}
                   max={3}
-                  step={0.1}
+                  step={1}
                   description="Niveau de cholestérol (1=normal, 2=au-dessus de la norme, 3=bien au-dessus de la norme)"
+                />
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="active"
+              render={({ field }) => (
+                <SliderField
+                  field={field}
+                  label="Activité physique"
+                  icon={<Activity className="h-4 w-4 text-green-500" />}
+                  min={0}
+                  max={1}
+                  step={1}
+                  description="Activité physique régulière (0=non, 1=oui)"
                 />
               )}
             />

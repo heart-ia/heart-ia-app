@@ -18,12 +18,11 @@ export function useAdvancedPredictionForm() {
 
   // Default values for the form
   const defaultValues = {
-    risk_score: 0,
-    ap_hi: 0,
-    IMC: 0,
-    map: 0,
     age: 0,
+    ap_hi: 0,
+    ap_lo: 0,
     cholesterol: 1,
+    active: 0,
   };
 
   // Initialize form with default values
@@ -49,12 +48,11 @@ export function useAdvancedPredictionForm() {
       // Only proceed if we have all required values
       if (
         !valuesToValidate ||
-        !valuesToValidate.risk_score ||
-        !valuesToValidate.ap_hi ||
-        !valuesToValidate.IMC ||
-        !valuesToValidate.map ||
         !valuesToValidate.age ||
-        !valuesToValidate.cholesterol
+        !valuesToValidate.ap_hi ||
+        !valuesToValidate.ap_lo ||
+        !valuesToValidate.cholesterol ||
+        valuesToValidate.active === undefined
       ) {
         return null;
       }

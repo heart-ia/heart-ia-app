@@ -14,11 +14,10 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 export const userInputSchema = z
   .object({
     age: z.number().min(0).max(120),
-    weight: z.number().positive().max(300),
-    height: z.number().positive().max(250),
     ap_hi: z.number().min(0).max(200),
     ap_lo: z.number().min(0).max(140),
     cholesterol: z.number().min(1).max(3),
+    active: z.number().min(0).max(1),
   })
   .refine((data) => data.ap_lo < data.ap_hi, {
     message:
@@ -28,12 +27,11 @@ export const userInputSchema = z
 
 // Define the schema for advanced input data
 export const advancedInputSchema = z.object({
-  risk_score: z.number(),
+  age: z.number(),
   ap_hi: z.number(),
-  IMC: z.number().max(2),
-  map: z.number().max(2),
-  age: z.number().min(-2).max(2),
+  ap_lo: z.number(),
   cholesterol: z.number().max(3),
+  active: z.number().min(0).max(1),
 });
 
 // Define the type for user input data
@@ -87,12 +85,11 @@ export async function predictFromAdvancedData(
   // Convert to the format expected by the API
   const inputData = {
     features: [
-      data.risk_score,
-      data.ap_hi,
-      data.IMC,
-      data.map,
       data.age,
+      data.ap_hi,
+      data.ap_lo,
       data.cholesterol,
+      data.active,
     ],
   };
 

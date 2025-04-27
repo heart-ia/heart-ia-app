@@ -3,8 +3,7 @@ import {
   Droplet,
   Heart,
   Loader2,
-  Ruler,
-  Weight,
+  Activity,
   Zap,
 } from 'lucide-react';
 import {
@@ -120,37 +119,36 @@ export function PredictionForm({
               )}
             />
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="weight"
-                render={({ field }) => (
-                  <SliderField
-                    field={field}
-                    label="Poids (kg)"
-                    icon={<Weight className="h-4 w-4" />}
-                    min={40}
-                    max={200}
-                    description="Votre poids en kilogrammes"
-                  />
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="height"
-                render={({ field }) => (
-                  <SliderField
-                    field={field}
-                    label="Taille (cm)"
-                    icon={<Ruler className="h-4 w-4" />}
-                    min={50}
-                    max={220}
-                    description="Votre taille en centimètres"
-                  />
-                )}
-              />
-            </div>
+            <FormField
+              control={form.control}
+              name="active"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">
+                    <Activity className="h-4 w-4 text-green-500" />
+                    Activité physique
+                  </FormLabel>
+                  <Select
+                    onValueChange={(value) => field.onChange(Number(value))}
+                    defaultValue={String(field.value)}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pratiquez-vous une activité physique régulière ?" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="0">Non</SelectItem>
+                      <SelectItem value="1">Oui</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    Indiquez si vous pratiquez une activité physique régulière
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField

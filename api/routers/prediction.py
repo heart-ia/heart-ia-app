@@ -66,7 +66,7 @@ async def predict_from_user_data(
     to make a prediction.
 
     Args:
-        data: User input data containing age, weight, height, blood pressure, and cholesterol
+        data: User input data containing age, blood pressure, cholesterol, and physical activity
         prediction_service: The prediction service
 
     Returns:
@@ -76,11 +76,10 @@ async def predict_from_user_data(
         ```json
         {
             "age": 50,
-            "weight": 70,
-            "height": 170,
             "ap_hi": 120,
             "ap_lo": 80,
-            "cholesterol": 1
+            "cholesterol": 1,
+            "active": 1
         }
         ```
     """
